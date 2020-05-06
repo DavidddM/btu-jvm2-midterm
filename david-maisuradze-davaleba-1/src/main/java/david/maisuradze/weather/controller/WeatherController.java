@@ -28,9 +28,6 @@ public class WeatherController {
     @Path("/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public Weather cityWeather(@PathParam("city") String name){
-        if (weathers.stream().anyMatch(c -> c.getCityName().equals(name))) {
-            return weathers.stream().filter(c -> c.getCityName().equals(name)).findFirst().get();
-        }
-        return new Weather();
+        return weathers.stream().filter(c -> c.getCityName().equals(name)).findFirst().orElse(new Weather());
     }
 }
